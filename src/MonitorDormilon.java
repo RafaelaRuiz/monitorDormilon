@@ -1,3 +1,5 @@
+import java.util.Queue;
+import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 
@@ -6,6 +8,7 @@ public class MonitorDormilon extends Thread{
     public static Semaphore sillasDisponibles = new Semaphore(3);
     public static Semaphore monitorDisponible = new Semaphore(0);
     public static Semaphore estudiantesEsperando = new Semaphore(0);
+    public static Queue<String> colaEstudiantes = new LinkedList<>();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);

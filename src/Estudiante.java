@@ -19,14 +19,13 @@ public class Estudiante extends Thread{
                 //Si hay sillas disponibles
                 if(MonitorDormilon.sillasDisponibles.tryAcquire()){
                     //Se libera una silla
+                    MonitorDormilon.colaEstudiantes.add(nombre);
                     MonitorDormilon.mutex.release();
                     System.out.println("Estudiante " + nombre + " se sienta en una silla");
                     //Se avisa que hay un estudiante esperando
                     MonitorDormilon.estudiantesEsperando.release();
                     //Se espera a que el monitor lo atienda
                     MonitorDormilon.monitorDisponible.acquire();
-                    //Se libera una silla al ser atendido
-                    MonitorDormilon.sillasDisponibles.release();
                     System.out.println("Estudiante " + nombre + " recibe ayuda del monitor");
                 }else{
                     //Si no hay sillas disponibles

@@ -11,13 +11,14 @@ public class Monitor extends Thread{
                 //Seccion critica
                 //Se atiende a un estudiante
                 MonitorDormilon.mutex.acquire();
-                System.out.println("Monitor atiende a un estudiante");
+                String estudianteAtendido = MonitorDormilon.colaEstudiantes.poll();
+                System.out.println("Monitor atiende a estudiante: " + estudianteAtendido);
                 MonitorDormilon.sillasDisponibles.release(); //Se libera una silla al atender
                 MonitorDormilon.mutex.release(); 
-                MonitorDormilon.monitorDisponible.release(); //hay un monitor disponible
+
                 //Se simula el tiempo atendiendo
                 Thread.sleep(new Random().nextInt(2000));
-                System.out.println("Monitor termina de atender a un estudiante");
+                System.out.println("Monitor termina de atender a estudiante: " + estudianteAtendido);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
